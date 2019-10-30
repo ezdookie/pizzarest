@@ -1,3 +1,4 @@
+
 rebuild:
 	docker-compose down
 	docker-compose build
@@ -11,3 +12,6 @@ migrate:
 
 seeds:
 	docker-compose exec api python manage.py loaddata products
+
+test:
+	docker-compose exec api python manage.py test

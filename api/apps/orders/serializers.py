@@ -48,7 +48,7 @@ class OrderSerializer(serializers.ModelSerializer):
         return order
 
     def update(self, instance, validated_data):
-        items_data = validated_data.pop('items')
+        items_data = validated_data.pop('items', [])
         for item_data in items_data:
             item_data['pizza_variant'] = item_data.pop('pizza_variant_id')
             if 'id' in item_data:
