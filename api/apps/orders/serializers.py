@@ -5,6 +5,7 @@ from apps.products.serializers import PizzaVariantSerializer
 
 
 class OrderItemSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(required=False)
     pizza_variant = PizzaVariantSerializer(read_only=True)
     pizza_variant_id = serializers.PrimaryKeyRelatedField(
         queryset=PizzaVariantModel.objects.all(), write_only=True)
@@ -47,6 +48,13 @@ class OrderSerializer(serializers.ModelSerializer):
         return order
 
     def update(self, instance, validated_data):
-        instance.delivery_status = validated_data['delivery_status']
-        instance.save()
-        return instance
+        items_data = validated_data.pop('items')
+        for item_data in items_data:
+            item_data['pizza_variant'] = item_data.pop('pizza_variant_id')
+            if 'id' in item_data:
+                obj_order_item = OrderItemModel.objects\
+                    .filter(order=instance, pk=item_data['id'])\
+                    .update(**item_data)
+            else:
+                OrderItemModel.objects.create(order=instance, **item_data)
+        return super(OrderSerializer, self).update(instance, validated_data)
