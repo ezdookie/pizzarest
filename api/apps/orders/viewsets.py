@@ -5,4 +5,4 @@ from apps.orders.serializers import OrderSerializer
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
-    queryset = OrderModel.objects.all()
+    queryset = OrderModel.objects.filter(deleted_at=None)

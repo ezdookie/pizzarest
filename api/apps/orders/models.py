@@ -1,5 +1,6 @@
 from django.db import models
 from apps.products.models import PizzaVariantModel
+from django.utils import timezone
 
 
 DELIVERY_STATUSES = (
@@ -17,6 +18,11 @@ class OrderModel(models.Model):
     customer_post_code = models.CharField(max_length=50)
     delivery_status = models.CharField(choices=DELIVERY_STATUSES,
         max_length=10, default='created')
+    deleted_at = models.DateTimeField(blank=True, null=True)
+
+    def delete(self):
+        self.deleted_at = timezone.now()
+        self.save()
 
     class Meta:
         db_table = 'order'
