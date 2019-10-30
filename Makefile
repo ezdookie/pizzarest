@@ -1,8 +1,10 @@
+build:
+	docker-compose build
+	docker-compose up -d
 
 rebuild:
 	docker-compose down
-	docker-compose build
-	docker-compose up -d
+	make build
 
 makemigrations:
 	docker-compose exec api python manage.py makemigrations
