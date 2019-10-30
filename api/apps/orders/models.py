@@ -2,7 +2,7 @@ from django.db import models
 from apps.products.models import PizzaVariantModel
 
 
-DELIVERY_STATUS_CHOICES = (
+DELIVERY_STATUSES = (
     ('created', 'Created'),
     ('preparing', 'Preparing'),
     ('delivering', 'Delivering'),
@@ -15,7 +15,7 @@ class OrderModel(models.Model):
     customer_address = models.CharField(max_length=100)
     customer_city = models.CharField(max_length=100)
     customer_post_code = models.CharField(max_length=50)
-    delivery_status = models.CharField(choices=DELIVERY_STATUS_CHOICES,
+    delivery_status = models.CharField(choices=DELIVERY_STATUSES,
         max_length=10, default='created')
 
     class Meta:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from apps.orders.models import OrderModel, OrderItemModel
+from apps.orders.models import OrderModel, OrderItemModel, DELIVERY_STATUSES
 from apps.products.models import PizzaVariantModel
 from apps.products.serializers import PizzaVariantSerializer
 
@@ -29,6 +29,15 @@ class OrderSerializer(serializers.ModelSerializer):
             'items'
         ]
 
+    def validate_delivery_status(self, value):
+        if not self.instance and value != DELIVERY_STATUSES[0][0]:
+            raise serializers.ValidationError('Invalid value for first delivery status')
+        elif self.instance and value != self.instance.delivery_status:
+            delivery_statues_keys = list(zip(*DELIVERY_STATUSES))[0]
+            if delivery_statues_keys.index(value) < delivery_statues_keys.index(self.instance.delivery_status):
+                raise serializers.ValidationError('Invalid value for next delivery status')
+        return value
+
     def create(self, validated_data):
         items_data = validated_data.pop('items')
         order = OrderModel.objects.create(**validated_data)
@@ -36,3 +45,8 @@ class OrderSerializer(serializers.ModelSerializer):
             item_data['pizza_variant'] = item_data.pop('pizza_variant_id')
             OrderItemModel.objects.create(order=order, **item_data)
         return order
+
+    def update(self, instance, validated_data):
+        instance.delivery_status = validated_data['delivery_status']
+        instance.save()
+        return instance
