@@ -31,6 +31,7 @@ class OrderModel(models.Model):
 class OrderItemModel(models.Model):
     order = models.ForeignKey(OrderModel, related_name='items', on_delete=models.DO_NOTHING)
     pizza_variant = models.ForeignKey(PizzaVariantModel, on_delete=models.DO_NOTHING)
+    quantity = models.IntegerField()
 
     class Meta:
         db_table = 'order_item'

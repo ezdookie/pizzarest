@@ -16,10 +16,12 @@ class OrderTests(APITestCase):
             'customer_post_code': '12345',
             'items': [
                 {
-                    'pizza_variant_id': 1 # Hawaiian personal
+                    'pizza_variant_id': 1, # Hawaiian personal
+                    'quantity': 1
                 },
                 {
-                    'pizza_variant_id': 7 # American personal
+                    'pizza_variant_id': 7, # American personal
+                    'quantity': 1
                 }
             ]
         }
@@ -37,7 +39,8 @@ class OrderTests(APITestCase):
             'customer_post_code': '12345',
             'items': [
                 {
-                    'pizza_variant_id': 1
+                    'pizza_variant_id': 1,
+                    'quantity': 1
                 }
             ]
         }
@@ -58,7 +61,8 @@ class OrderTests(APITestCase):
             'customer_post_code': '12345',
             'items': [
                 {
-                    'pizza_variant_id': 1
+                    'pizza_variant_id': 1,
+                    'quantity': 1
                 }
             ]
         }

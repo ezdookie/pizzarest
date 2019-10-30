@@ -12,7 +12,7 @@ class OrderItemSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = OrderItemModel
-        fields = ['id', 'pizza_variant', 'pizza_variant_id']
+        fields = ['id', 'pizza_variant', 'pizza_variant_id', 'quantity']
 
 
 class OrderSerializer(serializers.ModelSerializer):
