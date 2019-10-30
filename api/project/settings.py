@@ -130,3 +130,10 @@ STATIC_URL = '/static/'
 FIXTURE_DIRS = [
     os.path.join(BASE_DIR, 'seeds')
 ]
+
+
+# Rest Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend']
+}
