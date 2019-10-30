@@ -1,11 +1,11 @@
 from django.db import models
 
-
 PIZZA_SIZES = (
     ('personal', 'Personal'),
     ('large', 'Large'),
     ('familiar', 'Familiar'),
 )
+
 
 class PizzaModel(models.Model):
     name = models.CharField(max_length=50, unique=True)

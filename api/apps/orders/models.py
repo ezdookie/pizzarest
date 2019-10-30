@@ -2,7 +2,6 @@ from django.db import models
 from apps.products.models import PizzaVariantModel
 from django.utils import timezone
 
-
 DELIVERY_STATUSES = (
     ('created', 'Created'),
     ('preparing', 'Preparing'),

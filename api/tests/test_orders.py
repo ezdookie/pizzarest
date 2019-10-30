@@ -30,6 +30,43 @@ class OrderTests(APITestCase):
         self.assertEqual(OrderModel.objects.count(), 1)
         self.assertEqual(OrderItemModel.objects.count(), 2)
 
+    def test_update_pizza_flavor_size_n_quantity(self):
+        url_orders = reverse('ordermodel-list')
+        data = 	{
+            'customer_full_name': 'brian',
+            'customer_address': 'larco 264',
+            'customer_city': 'lima',
+            'customer_post_code': '12345',
+            'items': [
+                {
+                    'pizza_variant_id': 1,
+                    'quantity': 1
+                }
+            ]
+        }
+        resp_create = self.client.post(url_orders, data, format='json')
+
+        url_order_detail = reverse('ordermodel-detail', args=[resp_create.data['id']])
+        data = {
+            'items': [
+                {
+                    'id': resp_create.data['items'][0]['id'],
+                    'pizza_variant_id': 5,
+                    'quantity': 10
+                },
+                {
+                    'pizza_variant_id': 2,
+                    'quantity': 1
+                }
+            ]
+        }
+        resp = self.client.patch(url_order_detail, data, format='json')
+        self.assertEqual(resp.status_code, status.HTTP_200_OK)
+        self.assertEqual(OrderModel.objects.get().items.count(), 2)
+        order_item = OrderItemModel.objects.get(pk=resp_create.data['items'][0]['id'])
+        self.assertEqual(order_item.pizza_variant_id, 5)
+        self.assertEqual(order_item.quantity, 10)
+
     def test_update_order_with_good_next_delivery_status(self):
         url_orders = reverse('ordermodel-list')
         data = 	{
