@@ -9,7 +9,7 @@ class OrderTests(APITestCase):
 
     def test_create_order(self):
         url = reverse('ordermodel-list')
-        data = 	{
+        data = {
             'customer_full_name': 'brian',
             'customer_address': 'larco 264',
             'customer_city': 'lima',
@@ -32,7 +32,7 @@ class OrderTests(APITestCase):
 
     def test_update_pizza_flavor_size_n_quantity(self):
         url_orders = reverse('ordermodel-list')
-        data = 	{
+        data = {
             'customer_full_name': 'brian',
             'customer_address': 'larco 264',
             'customer_city': 'lima',
@@ -69,7 +69,7 @@ class OrderTests(APITestCase):
 
     def test_update_order_with_good_next_delivery_status(self):
         url_orders = reverse('ordermodel-list')
-        data = 	{
+        data = {
             'customer_full_name': 'brian',
             'customer_address': 'larco 264',
             'customer_city': 'lima',
@@ -84,14 +84,14 @@ class OrderTests(APITestCase):
         resp_create = self.client.post(url_orders, data, format='json')
 
         url_order_detail = reverse('ordermodel-detail', args=[resp_create.data['id']])
-        data = 	{'delivery_status': 'preparing'}
+        data = {'delivery_status': 'preparing'}
         resp = self.client.patch(url_order_detail, data, format='json')
         self.assertEqual(resp.status_code, status.HTTP_200_OK)
         self.assertEqual(OrderModel.objects.get().delivery_status, 'preparing')
 
     def test_update_order_with_bad_next_delivery_status(self):
         url_orders = reverse('ordermodel-list')
-        data = 	{
+        data = {
             'customer_full_name': 'brian',
             'customer_address': 'larco 264',
             'customer_city': 'lima',
@@ -106,10 +106,10 @@ class OrderTests(APITestCase):
         resp_create = self.client.post(url_orders, data, format='json')
         url_order_detail = reverse('ordermodel-detail', args=[resp_create.data['id']])
 
-        data = 	{'delivery_status': 'preparing'}
+        data = {'delivery_status': 'preparing'}
         self.client.patch(url_order_detail, data, format='json')
 
-        data = 	{'delivery_status': 'created'}
+        data = {'delivery_status': 'created'}
         resp = self.client.patch(url_order_detail, data, format='json')
         self.assertEqual(resp.status_code, status.HTTP_400_BAD_REQUEST)
         self.assertEqual(OrderModel.objects.get().delivery_status, 'preparing')
