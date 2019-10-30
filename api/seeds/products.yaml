@@ -1,0 +1,78 @@
+# === Products
+
+- model: products.PizzaModel
+  pk: 1
+  fields:
+    name: Hawaiian
+
+- model: products.PizzaModel
+  pk: 2
+  fields:
+    name: Pepperoni
+
+- model: products.PizzaModel
+  pk: 3
+  fields:
+    name: American
+
+# === Product variants
+
+# Hawaiian
+
+- model: products.PizzaVariantModel
+  pk: 1
+  fields:
+    pizza: 1
+    size: personal
+
+- model: products.PizzaVariantModel
+  pk: 2
+  fields:
+    pizza: 1
+    size: large
+
+- model: products.PizzaVariantModel
+  pk: 3
+  fields:
+    pizza: 1
+    size: familiar
+
+# Pepperoni
+
+- model: products.PizzaVariantModel
+  pk: 4
+  fields:
+    pizza: 2
+    size: personal
+
+- model: products.PizzaVariantModel
+  pk: 5
+  fields:
+    pizza: 2
+    size: large
+
+- model: products.PizzaVariantModel
+  pk: 6
+  fields:
+    pizza: 2
+    size: familiar
+
+# American
+
+- model: products.PizzaVariantModel
+  pk: 7
+  fields:
+    pizza: 3
+    size: personal
+
+- model: products.PizzaVariantModel
+  pk: 8
+  fields:
+    pizza: 3
+    size: large
+
+- model: products.PizzaVariantModel
+  pk: 9
+  fields:
+    pizza: 3
+    size: familiar
