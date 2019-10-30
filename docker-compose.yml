@@ -7,10 +7,8 @@ db:
 
 api:
   build: ./api
-  # command: tail -f /dev/null
-  command: ["python", "manage.py", "runserver", "0.0.0.0:8000"]
-  volumes:
-    - ./api:/usr/src/api
+  # volumes:
+  #   - ./api:/usr/src/api
   ports:
     - "9080:8000"
   links:

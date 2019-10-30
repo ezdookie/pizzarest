@@ -18,7 +18,7 @@ class PizzaModel(models.Model):
 
 
 class PizzaVariantModel(models.Model):
-    pizza = models.ForeignKey(PizzaModel, on_delete=models.DO_NOTHING)
+    pizza = models.ForeignKey(PizzaModel, related_name='variants', on_delete=models.DO_NOTHING)
     size = models.CharField(choices=PIZZA_SIZES, max_length=10)
 
     class Meta:
